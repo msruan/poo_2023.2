@@ -1,0 +1,7 @@
+4. Considerando os objetos Pessoa e Conta:
+a. Seria interessante em um sistema bancário um objeto "conta" possuir uma "pessoa" como um atributo interno representando o titular da conta?
+R- É desnecessário em minha opinião. A existência de uma instância da classe Conta, só é possível se já houver um objeto Pessoa a quem se associar.
+   Além disso, como provavelmente o objeto Pessoa pode ter mais de uma conta, faz mais sentido conta estar "contido" dentro de pessoa. 
+b. Olhando no sentido inverso, seria interessante uma pessoa possuir mais de uma conta como atributo? Que elemento da programação estruturada melhor
+   representaria o conjunto de contas de uma pessoa?
+   Sim, e isso normalmente é comum na vida real; acontece quando uma pessoa tem contas de tipos distintos, por exemplo. Um vetor de objetos do tipo Conta.

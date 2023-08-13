@@ -1,0 +1,6 @@
+6. Imagine um jogo qualquer. Identifique o máximo de objetos possíveis e eventuais características (atributos) e comportamentos (métodos) que os mesmos poderiam ter.
+R - Vamos abstrair o jogo de damas. Haveria um classe Partida que teria um atributo tempo, dois atributos da classe Jogador que armazenariam informações como seus nomes e emails, por exemplo. 
+    Também seria possível que em Partida houvesse um atributo objeto da classe Tabuleiro, que conteria como atributos um array de objetos Peca, um number numero_de_pecas, uma string cor_do_tabuleiro, etc.
+    Em partida também caberia um atributo booleano para indicar se a partida ainda está acontecendo, métodos como obterTempo, desistir, obterJogadores, entre outros.
+    Alguns atributos que um objeto da classe Peca poderia ter, seriam posicao-atual e cor, e haveriam métodos como andar_esquerda,andar_direita, capturar_peca. 
+    O mais interessante aqui é que poderia haver uma classe Dama que herdaria de Peca, e teria seus metodos andar modificados, já que a dama possui maior liberdade de movimentação.

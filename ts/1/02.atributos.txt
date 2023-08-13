@@ -1,0 +1,4 @@
+2.  De forma breve, conceitue atributos e métodos. Pesquise e exemplifique um exemplo de objeto que possua atributos e métodos (notação livre).
+R - Atributos representam dados, características que são importantes para uma determinada classe. Métodos são funções que acessam e/ou modificam os atributos.
+    Um exemplo clássico, é o do automóvel. Assim, poderíamos declarar uma classe Carro, onde encontraríamos atributos como ano, marcha_atual, marca, cor, velocidade_atual,
+    chassi, placa,  kilometragem, nivel_de_combustivel, e métodos tais como abastecer, ligar, desligar, andar, freiar, obterVelocidade, trocarOleo, obterKilometragem, entre outros.   

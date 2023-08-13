@@ -1,0 +1,22 @@
+3. A abstração visa focar no que é importante para um sistema. Você concorda que um atributo de uma pessoa pode ser importante ou não 
+   dependendo do contexto do sistema?. Enumere na tabela abaixo contextos/sistemas distintos em que os atributos abaixo seriam relevantes:
+R - Sim, um exemplo claro é a classe Pessoa, que pode ter diferentes atributos e métodos dependendo do interesse do sistema. Assim, enquanto uma pessoa
+    em um contexto pode ter apenas dados pessoais, em outros ela pode ter uma conta, altura, etc.
+
+/=============================================================\
+|       Atributo         |    Sistema em que é importante     |
+|************************|************************************|
+| Peso                   |    BD de clientes de uma clínica   |
+|************************|************************************|
+| Tipo de CNH            |    Sistema do Detran               |
+|************************|************************************|
+| Tipo sanguíneo         |    BD de doadores de medula óssea  |
+|************************|************************************|
+| Habilidade destra      |    Clínica de fisioterapia         |
+|************************|************************************|
+| Percentual de gordura  |    Clínica de nutrição             |
+|************************|************************************|
+| Saldo em conta         |    Bancos, crediárias              |
+|************************|************************************|
+| Etnia                  |  BDs de censos, como IBGE          |
+\*************************************************************/
