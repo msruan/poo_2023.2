@@ -1,0 +1,6 @@
+02. Qual o principal problema do uso de tipagem dinâmica?
+R -  Seu principal problema, é a tolerância à erros. Muitas falhas no código só são descobertas em tempo de execução, enquanto o compilador de linguagens estáticas
+normalmente já alerta o programador sobre problemas durante compilação; e é claro, os tipos de erro na tipagem dinâmica, podem não sobre
+tão claros. Apesar da tipagem dinâmica ter vantagens como flexibilidade, às vezes pode-se sacrificar a legibilidade e controle do fluxo do código no processo. 
+Outras questões incluem menor controle sobre a alocação de memória, inicialização de variáveis e conversões de dados, o que pode, em muitas ocasiões, 
+pode afetar o desempenho geral do programa.

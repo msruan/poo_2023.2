@@ -1,0 +1,6 @@
+01. Qual a diferença entre tipagem dinâmica e tipagem estática?
+R - Nas linguagens de programação que se usam da tipagem dinâmica, o interpretador só tem conhecimento do tipo dos dados(variáveis,vetores...) 
+em tempo de execução. Ou seja, normalmente não se permite declaração explícita do tipo da variável. Já nas linguagens estáticas, o tipos de dados
+são conhecidos em tempo de compilação, ou seja, o usuário deve os declarar explicitamente. 
+
+

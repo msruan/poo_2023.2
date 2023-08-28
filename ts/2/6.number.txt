@@ -1,0 +1,5 @@
+06. Poderíamos dizer que a tipagem do TypeScript é fraca por uma variável do tipo
+number aceitar tanto inteiros como ponto flutuante?
+R - Não. Apesar de não termos um controle tão fino dos dados númericos em TS como teríamos em outras linguaguens que adotam o uso de tipos int e float, por exemplo,
+a tipagem de TS ainda continua do tipo forte, porque esssa característica está mais ligada a como o compilador liga com conversões implícitas de tipos de dados, do que
+com qualquer outra coisa. 
