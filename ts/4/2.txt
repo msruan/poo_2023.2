@@ -1,0 +1,10 @@
+2. Suponha uma classe Hotel que sirva apenas para guardar a quantidade de
+solicitações de reservas feitas conforme abaixo:
+class Hotel {
+quantReservas : number;
+adicionarReserva() : void {
+quantReservas++;
+}
+}
+Podemos afirmar que haverá um problema de compilação, pois a variável inteira não foi inicializada previamente? Justifique.
+SIm, haverá. Não é possível utilizar o operador de incremento, já que nenhum valor foi atribuído à variável ainda. Ou seja, estamos adicionando 1 a undefined, o que é um erro. Uma possível solução, seria inicializar a variável com o valor 0

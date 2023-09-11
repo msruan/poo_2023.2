@@ -1,0 +1,17 @@
+5. Considerando o uso da classe Conta apresentada em aula e seu uso abaixo:
+let c1: Conta = new Conta("1",100);
+let c2: Conta = new Conta("2",100);
+let c3: Conta;
+c1 = c2;
+c3 = c1;
+c1.sacar(10);
+c1.transferir(c2,50);
+console.log(c1.consultarSaldo());
+console.log(c2.consultarSaldo());
+console.log(c3.consultarSaldo());
+a. Qual o resultado dos dois "prints"? Justifique sua resposta.
+
+Seria atribuído 90 a ambas as contas seriam todas 90, após todas as operações, visto que o objeto 2 acaba sendo referenciado pelo objeto 1 e o objeto 3 acaba referenciando o objeto 1
+b. O que acontece com o objeto para o qual a referência c1 apontava?
+Sua referência acaba sendo perdida, visto que c3 agora estaria apontando para c1, modificando c3, acabaria modificando o objeto c1
+
