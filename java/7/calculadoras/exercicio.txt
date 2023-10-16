@@ -1,0 +1,3 @@
+Foi necessária alguma modificação em Calculadora para o acesso aos atributos?
+R - A principal dificuldade, foi que ao extender os atributos privados para CalculadoraCientifica, eles não estavam disponiveis,
+então foi preciso utilizar getters para poder acessá-los dentro de CalculadoraCientifica para implementar o método exponenciar
