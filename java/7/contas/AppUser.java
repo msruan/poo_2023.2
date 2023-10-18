@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 
-public class App {
+public class AppUser {
     public static final int SAIDA = 0;
     public static final int CADASTRO = 1;
     public static final int CONSULTA = 2;
@@ -20,9 +20,43 @@ public class App {
     public static final int EXCLUSAO = 6;
     public static final int TOTAL = 7;
 
+    public static void cadastro(){}
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        String nome_banco = "Bradesco";
+        boolean cadastrado = lerSimOuNao("Olá... seja bem vindo!!\nVoce já está cadastrrado no sistema meu bem?", input);
+        if(cadastrado){
+            do{
+                String cpf = lerString("Digite seu cpf: ", input);
+                if(Usuario.userEstaCadastrado(cpf)){
+                    System.out.println("Usuario encontrado!");
+                    break;
+                }else {
+                    if(lerSimOuNao("Nao encontrei seu cpf querido. Quer tentar de novo?", input)){
+                        continue;
+                    }else{
+                        AppUser.cadastro();
+                    }
+                }
+            }while(true);
+        }else
+            AppUser.cadastro();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        System.out.print("Digite o nome do seu banco: ");
+        String nome_banco = input.nextLine().trim();
         limparConsole();
         Banco banco = new Banco(nome_banco);
         /*if(arquivoExiste("%sContasDB.txt".formatted(nome_banco))){
@@ -177,4 +211,5 @@ public class App {
         }
         input.close();
     }
+    
 }
