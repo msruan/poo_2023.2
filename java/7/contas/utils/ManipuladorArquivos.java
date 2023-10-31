@@ -54,7 +54,7 @@ public class ManipuladorArquivos {
     public static ArrayList <String> lerLinhas(String caminho){
         ArrayList<String> linhas = new ArrayList<>();
         try{
-            Files.lines(Paths.get(caminho)).forEach(line -> linhas.add(line.toString()));
+            Files.lines(Paths.get(caminho)).forEach(line -> linhas.add(line));
         }catch(IOException e){
             System.out.println("Erro durante a leitura do arquivo! "+e.getMessage());
         }catch(Exception e){

@@ -1,12 +1,17 @@
 package contas;
-import static contas.utils.ManipuladorArquivos.*;
+//import static contas.utils.ManipuladorArquivos.*;
 import static contas.utils.MenuUtils.*;
+//obs: depositar ta com uma mensagem de saque
+//consertar o ler double
+//retirar alguns loops desnecssarios, como em consultar
 
-import java.io.IOException;
+import javax.swing.JOptionPane;
+/*import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.StandardOpenOption
+*/
 import java.util.Scanner;
 
 public class App {
@@ -17,8 +22,9 @@ public class App {
     public static final int DEPOSITO = 4;
 
     public static final int TRANSFERENCIA = 5;
-    public static final int EXCLUSAO = 6;
-    public static final int TOTAL = 7;
+    public static final int RENDER_JUROS = 6;
+    public static final int EXCLUSAO = 7;
+    public static final int TOTAL = 8;
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
@@ -34,7 +40,7 @@ public class App {
                 banco.cadastrarConta(new Conta(conta[0], conta[1], Double.valueOf(conta[2].replace(",", "."))));
             }
         }*/
-        Path diretorioPath = Paths.get(System.getProperty("user.dir"),"contas/db");
+        /*Path diretorioPath = Paths.get(System.getProperty("user.dir"),"contas/db");
         if(Files.isDirectory(diretorioPath)){
             Path filePath = diretorioPath.resolve("%sContasDB.txt".formatted(nome_banco));
             if(Files.exists(filePath)){
@@ -47,8 +53,8 @@ public class App {
                     banco.cadastrarConta(new Conta(conta[0], conta[1], Double.valueOf(conta[2].replace(",", "."))));
                 }
             }
-        }
-        String menu_principal = gerarMenu(nome_banco,"Cadastrar, Consultar, Sacar, Depositar, Transferir, Excluir, Totalizações");
+        }*/
+        String menu_principal = gerarMenu(nome_banco,"Cadastrar, Consultar saldo, Sacar, Depositar, Transferir, Render Juros, Excluir, Totalizações");
         int opcao;
         do{
             if(!banco.temContas()) {
@@ -65,13 +71,28 @@ public class App {
                 case CADASTRO:
                     String nome;
                     double saldo;
+                    String[] opcoes = { "Normal", "Poupança", "Imposto" };
+                    int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção:", "Menu", 0, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+
                     String numero_cadastro = lerString("\nDigite o número da conta desejada: ", input);
                     while (!(banco.consultarPorNumero(numero_cadastro) == null)) {
                         numero_cadastro = lerString("Este número já está cadastrado!\nPor favor, digite outro: ", input);
                     }
                     nome = lerString("Digite seu nome: ", input);
                     saldo = lerDoublePositivo("\nDigite seu saldo atual: ", input);
-                    banco.cadastrarConta(new Conta(numero_cadastro, nome, saldo));
+
+                    if(escolha == 1 || escolha == 2){
+
+                        double taxa = lerDoublePositivo("Digite o valor da taxa: ",input);
+
+                        if(escolha == 1)
+                            banco.cadastrarConta(new ContaPoupanca(numero_cadastro, nome, saldo, taxa));
+                        else
+                            banco.cadastrarConta(new ContaImposto(numero_cadastro, nome, saldo, taxa));
+
+                    }
+                    else
+                        banco.cadastrarConta(new Conta(numero_cadastro, nome, saldo));
                     break;
                 case CONSULTA:
                     Conta procurada;
@@ -137,6 +158,18 @@ public class App {
                         }
                     }while(lerSimOuNao("Repetir operação? ",input));
                     break;
+                case RENDER_JUROS:
+                    System.out.print("Digite o número da sua conta poupança:\n>>> ");
+                    Conta conta_poupanca = banco.consultarPorNumero(input.nextLine());
+                    if(conta_poupanca == null) {
+                        System.out.println("\nConta não encontrada!");
+                    }
+                    else if(conta_poupanca instanceof ContaPoupanca){
+                        ((ContaPoupanca)conta_poupanca).renderJuros();
+                    }else {
+                        System.out.println("Operacao invalida! Verifique se a conta realmente é do tipo poupanca.");
+                    }
+                    break;
                 case EXCLUSAO:
                     Conta alvo;
                     do{
@@ -153,11 +186,12 @@ public class App {
                 case TOTAL:
                     System.out.println(banco);
                     break;
+                
             }
             limparConsole();
         }while(opcao != SAIDA);
         
-        if(banco.temContas()){
+        /*if(banco.temContas()){
             StringBuilder contasB = new StringBuilder();
             for(Conta conta : banco.getContas())
                 contasB.append(String.format("%s;%s;%f\n", conta.consultarNumero(),conta.consultarNome(),conta.getSaldo()) );
@@ -175,7 +209,7 @@ public class App {
             catch(IOException e){
                 System.out.println(e.getMessage());
             }
-        }
+        }*/
         input.close();
     }
 }

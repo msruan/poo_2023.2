@@ -14,13 +14,11 @@ public class FolhaDePagamento {
 		double soma = 0;
 		for(Pessoa func : getFuncionarios()){
 			if(func instanceof Professor) {
-				Professor func_cast = (Professor)func;
-				soma += func_cast.getSalario();
+				soma += ((Professor)func).getSalario();
+
 			}else if(func instanceof Funcionario){
-				Funcionario func_cast = (Funcionario)func;
-				soma+= func_cast.getSalario();
+				soma+= ((Funcionario)func).getSalario();
 			}
 		}return soma;
 	}
-	
 }
