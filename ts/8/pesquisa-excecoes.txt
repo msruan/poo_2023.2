@@ -1,0 +1,65 @@
+1) Identifique pelo menos 3 “erros” que acontecem quando você está programando  com TypeScript que levam à parada brusca da execução de código. 
+
+   R - Tentar acionar métodos de um variável que não aponta para nenhum objeto,tentar acessar o conteúdo de variáveis que não foram inicializadas 
+		e tentar acessar um index que está fora do range de um array.
+		
+2) O que é uma exceção em programação e como ela se diferencia de um erro  comum? 
+
+   R - Exceções são erros que ocorrem em tempo de execução, e que normalmente já tem seu surgimento previsto e previamente tratado no código; normalmente elas são implementadas em linguages orientadas a 					objeto. Enquanto isso, os erros são um conceito mais amplo, abrangendo desde exceções, até erros de sintaxe, que normalmente são “acusados” em tempo de interpretação, lógicos (o programa não cumpre o 			papel para o que foi criado), falhas no hardware, entre outros tipos de problema. Apesar da classe 
+
+3) Como o TypeScript implementa o tratamento de exceções? 
+   
+   R - Como é padrão na maioria das linguagens de programação modernas, todas as exceções herdam de uma super classe comum, "Error" em Javascript (não deixei o nome confundir, ainda se trata apenas de 					exceções), e se ramificam em erros mais específicos, e a partir do conhecimento dessa hierarquia, se constrói estruturas try-catch-finally para indicar ao programa o que ele deve fazer caso ocorra 				alguma exceção prevista ou não.
+
+4) Qual é a função do bloco try-catch no tratamento de exceções em TypeScript? 
+   
+   R - O bloco try serve para indicar um trecho onde prevê-se o lançamento de exceções. Os eventuais blocos catch anexados abaixo de um try (você pode inserir tantos quanto desejar), trazem uma sequência de 				instruções a serem executadas a depender do tipo da exceção lançada (a ordem dos blocos catch deve estar de acordo com a hierarquia, tratanto primeiramente exceções mais específicas, e deixando tipos 			de exceções mais genéricos para serem capturados abaixo.
+
+5) Como você pode criar exceções personalizadas em TypeScript? 
+	
+	R - O padrão de criação de exceções, envolve sempre extender a super classe das exceções e a partir disso aplicar sua própria lógica. Assim, para criar uma exceção personalizada deve-se primeiro declarar 			 uma classe que extende de Error, alterar atributos padrão como message e name, e então inserir seus próprios atributos caso veja necessidade. Um padrão comum nesses casos, é criar uma classe que 				 extende da superclasse da exceções (Error, por exemplo), e fazer todas as suas próprias exceções herdarem desta.
+
+6) Quais são os tipos comuns de exceções que podem ser encontradas em  aplicações TypeScript? 
+
+	R - TypeError (atribuição de valores incompatíveis com o tipo de uma variável, por exemplo), RangeError (como tentar exceder os limites de um array) e ReferenceError (que envolvem por exemplo, o acesso a 			 variáveis que ainda não foram inicializadas).
+
+7) Qual é o papel do bloco finally no tratamento de exceções em TypeScript? 
+
+    R - Ele contém instruções que sempre serão executadas após um try, independente de este lançar exceções ou não, e estas estarem sendo tratadas por blocos catch. Antes de uma exceção ser lançada, caso não 			 haja nenhum bloco catch para a capturar, as instruções contidas no finally serão executadas, e só então a exceção será “jogada”.
+   
+8) Como o tratamento de exceções em TypeScript ajuda a melhorar a robustez e a  segurança de uma aplicação? 
+
+   R - O tratamento de exceções, por si só, já garante que a aplicação terá maior tolerância à falhas. Além disso, as exceções também permitem detectar e entender erros mais facilmente, além de permitir 					rastrear sua origem de maneira eficiente.
+
+
+9) Existem diferenças significativas no tratamento de exceções entre TypeScript e  JavaScript? 
+   
+   R - Existem algumas diferenças, mas na prática, elas apenas servem para deixar o tratamento mais claro. Algumas notáveis, são o uso do tipo de retorno 'never' pra funções que usualmente apenas lançam 					exceções, e o uso de tipagem do erro epxlcíta no bloco catch (em versões de TS mais recentes), como ocorre em outras linguagens tipadas. Isso é exemplificado abaixo: 
+   
+   		try {
+   			...
+   		} catch (erro : Error) {
+   			...
+   		} 
+   		
+   		O correspondente em Javascript seria algo como:
+   		
+   		try {
+   			...
+   		}catch (erro) {
+   		
+   			if(erro istanceof Error){
+   				...
+   			}
+   		}
+10) Como você pode testar e depurar eficientemente exceções em TypeScript? 
+
+	R - Além das construções try-catch, recomenda-se usar vários de casos de teste em diferentes cenários para garantir que nenhuma exceção imprevista seja lançada, e quando for lançar exceções manualmente, 				 garantir que elas sejam legíveis e permitam que o erro seja devidamente rastreado (utilizando um tipo de erro mais específico, por exemplo).
+
+Links para consulta: 
+• https://developer.mozilla.org/pt 
+BR/docs/Web/JavaScript/Guide/Control_flow_and_error_handling 
+• https://basarat.gitbook.io/typescript/type-system/exceptions 
+• https://www.typescriptlang.org/docs/handbook/basic-types.html 
+• https://stackoverflow.com/questions/31626231/custom-error-class-in-typescript • https://javascript.info/try-catch
+• https://www.geeksforgeeks.org/difference-between-typescript-and-javascript/ • https://testingjavascript.com/
