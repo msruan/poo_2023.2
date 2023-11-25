@@ -1,0 +1,68 @@
+(1) Enumere os 3 tipos mais comuns de tratamento de erros e exemplifique com
+códigos seus ou pesquisados na internet.
+
+
+=======================================================================================================================
+
+
+A primeira forma mais comum de lidar com erros consiste em apenas ignorar uma determinada operação.
+
+''''''''''''''''''''''''''''''
+void depositar(double valor){
+    if (valor > 0) 
+        this.saldo += valor;
+}
+''''''''''''''''''''''''''''''
+
+A principal falha dessa estratégia é a dúvida quanto ao sucesso da operação. Daí surgem perguntas como "A operação
+deve ser registrada no banco de dados?". Nesse exemplo específico, precisaríamos de checagens no valor do saldo pré 
+e pós operação, para verificar se ela foi bem realizada, o que resultaria em aumento de complexidade desnecessário.
+
+
+=======================================================================================================================
+
+
+A segunda forma mais comum é a exibição de mensagens de erro. 
+
+''''''''''''''''''''''''''''''
+void depositar(double valor){
+    if (valor > 0) {
+        this.saldo += valor;
+        return;
+    }System.out.println("Erro ao realizar a operação! Você passou um valor inválido para depósito!")
+}
+''''''''''''''''''''''''''''''
+
+Essa alternativa no entanto, carrega as mesmas incertezas da anterior, afinal, a mostra de mensagens de erro não 
+muda o fato de que ainda não temos controle fácil do sucesso das operações. Aliás, nem possuiríamos garantia de que
+a mensagem de fato seria exibida, pois caso tivéssemos programado uma exibição de mensagem no console, como no snippet
+acima por exemplo, caso o programa fosse portado para uma interface gráfica ou para a web a mensagem estaria inacessível. 
+
+
+=======================================================================================================================
+
+
+A terceira forma consiste em retornar códigos de erro.
+
+''''''''''''''''''''''''''''''
+int sacar(double valor){
+
+    if(valor <= 0)
+        return -1;
+
+    else if(saldo < valor)
+        return 0;
+
+    this.saldo -= valor;
+    return 1;
+}
+''''''''''''''''''''''''''''''
+
+Essa estratégia é bem abrangente, e envolve desde retornar inteiros, enums, constantes, até valores booleanos. Podemos 
+vê-la sendo aplicada na Web até um certo nível nos famosos erros HTTP, como o 401 (Unauthorized), 404 (Not found) e 
+503 (Service unavailable). Entretanto, essa abordagem possui algumas limitações, já que ela cria uma certa depêndencia 
+entre as camadas da aplicação, e normalmente, é preciso um certo esforço para propagar erros que aconteceram em camadas 
+mais baixa para as mais altas. E é claro, é preciso ter conhecimento prévio do que os códigos de erro significam, o que 
+cria uma necessidade até certo ponto de um "manual de instruções" para entender o código.
+
+=======================================================================================================================
