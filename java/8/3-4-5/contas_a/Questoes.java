@@ -1,10 +1,10 @@
-package contas;
+package contas_a;
 
 public class Questoes {
     public static void main(String[] args) throws Exception {
-        //Questao3.main(args);
-        //Questao4.main(args);
-        //Questao5.main(args);
+        Questao3.main(args);
+        Questao4.main(args);
+        Questao5.main(args);
     }
 }
 

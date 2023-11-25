@@ -1,14 +1,14 @@
-package contas;
+package contas_b;
 
 public class ContaImposto extends Conta {
     private double taxa;
-    ContaImposto(String numero, String nome, double saldo, double taxa){
+    ContaImposto(String numero, String nome, double saldo, double taxa) throws Exception{
         super(numero, nome, saldo);
         this.taxa = taxa;
     }
     public String salvar(){
 
-        return "1;"+consultarNumero()+";"+consultarNome()+";"+getSaldo()+";"+getTaxa()+";\n";
+        return "1;"+getNumero()+";"+getNome()+";"+getSaldo()+";"+getTaxa()+";\n";
     }
     public double getTaxa(){
         return taxa;
@@ -17,7 +17,7 @@ public class ContaImposto extends Conta {
     public boolean sacar(double quantidade) throws Exception {
         return super.sacar(quantidade + quantidade*(taxa/100));
     }
-    public boolean depositar(double quantidade){
+    public boolean depositar(double quantidade) throws Exception{
         return super.depositar(quantidade - quantidade*(taxa/100));
     }
 }

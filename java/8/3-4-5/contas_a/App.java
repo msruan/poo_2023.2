@@ -1,10 +1,9 @@
-package contas;
-import static contas.utils.ManipuladorArquivos.*;
-import static contas.utils.MenuUtils.*;
-//consertar o ler double
-//retirar alguns loops desnecssarios, como em consultar
-
+package contas_a;
 import javax.swing.JOptionPane;
+
+import static contas_a.utils.ManipuladorArquivos.*;
+import static contas_a.utils.MenuUtils.*;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -238,6 +237,6 @@ public class App {
 
     public static String getCaminhoDoBancoDeDados(String nomeDoBanco){
         
-        return System.getProperty("user.dir")+"/3/db/%sContas.txt".formatted(nomeDoBanco);
+        return System.getProperty("user.dir")+"/db/%sContas.txt".formatted(nomeDoBanco);
     }
 }

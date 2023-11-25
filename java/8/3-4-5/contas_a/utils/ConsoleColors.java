@@ -1,4 +1,4 @@
-package contas.utils;
+package contas_a.utils;
 public class ConsoleColors {
     // Reset
     public static final String RESET = "\033[0m";

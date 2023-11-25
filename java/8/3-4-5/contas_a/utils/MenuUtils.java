@@ -1,6 +1,8 @@
-package contas.utils;
+package contas_a.utils;
 
 import java.util.Scanner;
+
+
 
 public class MenuUtils {
     public static String gerarMenu(String titulo, String opcoes) {

@@ -1,4 +1,4 @@
-package contas;
+package contas_a;
 
 public class ContaPoupanca extends Conta {
     private double taxa;
