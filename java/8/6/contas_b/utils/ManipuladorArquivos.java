@@ -1,96 +1,41 @@
 package contas_b.utils;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class ManipuladorArquivos {
-    public static void main(String[] args) {
-        gravarArquivo("teste.txt","só alegria haha");
-        System.out.println(lerArquivo("teste.txt"));
-    }
+    
     public static boolean arquivoExiste(String path){
         return Files.exists(Paths.get(path));
     }
-    public static String lerArquivo(String caminho){
-        StringBuilder conteudo = new StringBuilder();
-        BufferedReader leitor;
-        try {
-            leitor = new BufferedReader(new FileReader(caminho));
-            try{
-                String linha = leitor.readLine();
-                for(; linha != null; linha = leitor.readLine())
-                    conteudo.append(linha);
-                leitor.close();
-            }catch(IOException e){
-                System.out.println("Problema durante leitura do arquivo!");
-            }
-        }catch (FileNotFoundException e){
-            System.out.println("Arquivo não encontrado!");
-        }
-        return conteudo.toString();
-    }
-    public static boolean gravarArquivo(String caminho, String texto){
-        try {
-            BufferedWriter gravador = new BufferedWriter(new FileWriter(caminho,false));
-            gravador.write(texto+'\n');
-            if(texto.charAt(texto.length()-1) == '\n')
-                gravador.newLine();
 
-            gravador.close();
-        }
-        catch (IOException e){
-            System.out.println("Erro durante gravação de arquivo!");
-            return false;
-        }return true;
-    }
     public static ArrayList <String> lerLinhas(String caminho){
         
         ArrayList<String> linhas = new ArrayList<>();
         try{
             Files.lines(Paths.get(caminho)).forEach(line -> linhas.add(line));
         }catch(IOException e){
-            System.out.println("Erro durante a leitura do arquivo! "+e.getMessage());
-        }catch(Exception e){
-            System.out.println("Erro desconhecido durante operacao no arquivo! "+e.getMessage());
-        }return linhas;
-    }
-     public static ArrayList <String> lerLinhas(Path caminho){
-        ArrayList<String> linhas = new ArrayList<>();
-        try{
-            Files.lines(caminho).forEach(line -> linhas.add(line.toString()));
-        }catch(IOException e){
-            System.out.println("Erro durante a leitura do arquivo! "+e.getMessage());
-        }catch(Exception e){
-            System.out.println("Erro desconhecido durante operacao no arquivo! "+e.getMessage());
+            System.out.println(String.format("Erro IO durante a leitura do arquivo em %s! ",caminho)+e.getMessage());
+        }catch(RuntimeException e){
+            System.out.println(String.format("Erro Runtime durante operacao no arquivo em %s! ",caminho)+e.getMessage());
         }return linhas;
     }
 
-    public static void gravarLinhas(Path caminhoArquivo, String conteudo){
-        try{
-            Files.write(caminhoArquivo,conteudo.getBytes());
-        }catch(IOException e){
-            System.out.println("Erro durante a gravação no arquivo! "+e.getMessage());
-        }catch(Exception e){
-            System.out.println("Erro desconhecido durante operacao no arquivo! "+e.getMessage());
-        }
-    }    
+    public static void escreverEmArquivo(String caminho, String conteudo){
+        try ( BufferedWriter buffwriter = new BufferedWriter(
+                new FileWriter(caminho) 
+                ) ) {
+                    buffwriter.write(conteudo);
 
-
-    public static void gravarLinhas(String caminho, String conteudo){
-        try{
-            Files.write(Path.of(caminho),conteudo.getBytes());
-        }catch(IOException e){
-            System.out.println("Erro durante a gravação no arquivo! "+e.getMessage());
-        }catch(Exception e){
-            System.out.println("Erro desconhecido durante operacao no arquivo! "+e.getMessage());
+        } catch (IOException e){
+            System.out.println(String.format("Erro IO durante a tentativa de salvar conteúdo em %s! ",caminho)+e.getMessage());
+            e.printStackTrace();
+        }catch(RuntimeException e){
+            System.out.println(String.format("Erro Runtime durante a tentativa de salvar conteúdo em %s! ",e.getMessage()));
         }
     }
 }

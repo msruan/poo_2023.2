@@ -17,12 +17,12 @@ class Teste {
 
         Conta conta = new Conta("123", "João",100);
         Banco banco = new Banco("Banco");
-        banco.cadastrarConta(conta);
+        banco.inserir(conta);
         banco.sacar("123", 40);
         System.out.println(conta);
         
         Conta conta2 = new Conta("456", "Flavia",-200);
-        banco.cadastrarConta(conta2);
+        banco.inserir(conta2);
         banco.sacar("456", 300);
         System.out.println(conta2);
     }
@@ -48,8 +48,8 @@ class Teste3 {
 
         ContaPoupanca conta = new ContaPoupanca("718", "Caio",5100,0.12);
         Conta conta2 = new Conta("532", "Katia",67);
-        banco.cadastrarConta(conta);
-        banco.cadastrarConta(conta2);
+        banco.inserir(conta);
+        banco.inserir(conta2);
         banco.transferir("718","532",600);   
         banco.transferir("532","718",-4);   
     }

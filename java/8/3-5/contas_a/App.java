@@ -32,13 +32,13 @@ public class App {
         do{
 
             if(banco.getTotalContas() == 0) {
-                opcao = obterOpcao(gerarMenu(nome_banco, "Cadastrar"));
+                opcao = lerInt(gerarMenu(nome_banco, "Cadastrar"),input);
                 if (opcao != 0 && opcao != 1)
                     continue;
             }
 
             else{
-                opcao = obterOpcao(menu_principal);
+                opcao = lerInt(menu_principal,input);
                 if (opcao < 1 || opcao > 8)
                     continue;
             }
@@ -60,13 +60,13 @@ public class App {
 
                 nome = JOptionPane.showInputDialog(null,"Digite seu nome: ", "Cadastro", JOptionPane.QUESTION_MESSAGE);
                 
-                saldo = lerDoublePositivo("\nDigite seu saldo atual: ", input);
+                saldo = lerDouble("\nDigite seu saldo atual: ", input);
 
                 if(escolha == 0)
                     banco.inserir(new Conta(numero_cadastro, nome, saldo));
 
                 else{
-                    double taxa = lerDoublePositivo("Digite o valor da taxa: ",input);
+                    double taxa = lerDouble("Digite o valor da taxa: ",input);
 
                     if(escolha == 1)
                         banco.inserir(new ContaPoupanca(numero_cadastro, nome, saldo, taxa));
@@ -84,7 +84,7 @@ public class App {
                     JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
                 else
                     System.out.println(procurada);
-                pause(input);
+                pause(input,"<Enter>");
             }
 
             else if(opcao == SAQUE || opcao == DEPOSITO){
@@ -97,7 +97,7 @@ public class App {
 
                     if(conta != null){
 
-                        valor = lerDoublePositivo("\nDigite o valor: ",input);
+                        valor = lerDouble("\nDigite o valor: ",input);
 
                         if(opcao == SAQUE)
                             conta.sacar(valor);
@@ -121,7 +121,7 @@ public class App {
                 double valor_transferencia;
                 numero_fonte = lerString("Digite o número da conta fonte: ", input);
                 numero_destino = lerString("Digite o número da conta destino: ", input);
-                valor_transferencia = lerDoublePositivo("Digite o valor a ser transferido: ", input);
+                valor_transferencia = lerDouble("Digite o valor a ser transferido: ", input);
 
                 banco.transferir(numero_fonte, numero_destino, valor_transferencia);
             }
@@ -142,7 +142,7 @@ public class App {
 
             else if(opcao == TOTAL){
                 System.out.println(banco);
-                pause(input);
+                pause(input,"<Enter>");
             }
 
             limparConsole();
