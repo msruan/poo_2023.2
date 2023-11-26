@@ -84,11 +84,10 @@ public class Banco {
         }
     }
 
-    public boolean sacar(String numero, double valor) throws Exception{
+    public void sacar(String numero, double valor) throws Exception{
         Conta alvo = consultarPorNumero(numero);
-        if(alvo != null){
-            return alvo.sacar(valor);
-        }return false;
+        if(alvo != null)
+            alvo.sacar(valor);
     }
 
     public boolean depositar(String numero, double valor){

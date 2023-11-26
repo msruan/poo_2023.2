@@ -14,8 +14,8 @@ public class ContaImposto extends Conta {
         return taxa;
     }
 
-    public boolean sacar(double quantidade) throws Exception {
-        return super.sacar(quantidade + quantidade*(taxa/100));
+    public void sacar(double quantidade) throws Exception {
+        super.sacar(quantidade + quantidade*(taxa/100));
     }
     public boolean depositar(double quantidade){
         return super.depositar(quantidade - quantidade*(taxa/100));

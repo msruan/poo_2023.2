@@ -32,17 +32,16 @@ public class Conta {
         return nome;
     }
 
-    boolean sacar(double valor) throws Exception {
+    void sacar(double valor) throws Exception {
 
         if(saldo <= 0)
             throw new Exception("Valor inválido!");
 
-        else if (this.saldo >= valor) {
-            this.saldo -= valor;
-            return true;
-
-        }else 
+        else if (this.saldo <= valor) {
             throw new Exception("Saldo insuficiente!");
+
+        }
+        saldo -= valor; 
     }
 
     boolean depositar(double valor) throws Exception{
@@ -59,8 +58,7 @@ public class Conta {
     }
 
     boolean transferir(Conta contaDestino, double valor) throws Exception{
-        if (this.sacar(valor)) {
-            return contaDestino.depositar(valor);
-        }return false;
+        sacar(valor);
+        return contaDestino.depositar(valor);
     }   
 }

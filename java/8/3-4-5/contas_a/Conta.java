@@ -28,11 +28,10 @@ public class Conta {
     }public String consultarNome() {
         return nome;
     }
-    boolean sacar(double valor) throws Exception {
-        if (valor > 0 && this.saldo >= valor) {
-            this.saldo -= valor;
-            return true;
-        }throw new Exception("Saldo insuficiente!");
+    void sacar(double valor) throws Exception {
+        if(saldo < valor)
+            throw new Exception("Saldo insuficiente!");
+        this.saldo -= valor;
     }
 
     boolean depositar(double valor){
@@ -47,8 +46,7 @@ public class Conta {
     }
 
     boolean transferir(Conta contaDestino, double valor) throws Exception{
-        if (this.sacar(valor)) {
-            return contaDestino.depositar(valor);
-        }return false;
+        sacar(valor);
+        return contaDestino.depositar(valor);
     }   
 }

@@ -1,7 +1,6 @@
 package contas_b;
 import javax.swing.JOptionPane;
 
-
 import static contas_b.utils.ManipuladorArquivos.*;
 import static contas_b.utils.MenuUtils.*;
 
@@ -32,7 +31,7 @@ public class App {
         limparConsole();
         Banco banco = new Banco(nome_banco);
 
-
+        
         if(arquivoExiste(getCaminhoDoBancoDeDados(nome_banco))){
 
             ArrayList<String> conteudo = lerLinhas(getCaminhoDoBancoDeDados(nome_banco));
@@ -79,7 +78,7 @@ public class App {
                     JOptionPane.showMessageDialog(null, "Este número já está cadastrado!", "Erro",JOptionPane.ERROR_MESSAGE);
                     numero_cadastro = lerString("\nPor favor, digite outro: ", input);
                 }
-                nome = lerString("Digite seu nome: ", input);
+                nome = JOptionPane.showInputDialog(null,"Digite seu nome: ", "Cadastro", JOptionPane.QUESTION_MESSAGE);
                 saldo = lerDoublePositivo("\nDigite seu saldo atual: ", input);
 
                 if(escolha == 0){
@@ -119,12 +118,10 @@ public class App {
                     numero_sacada = lerString("\nDigite o número da sua conta: ",input);
                     if(banco.estaCadastrada(numero_sacada)){
                         valor_saque = lerDoublePositivo("\nDigite o valor do saque: ",input);
-                        if(banco.sacar(numero_sacada,valor_saque)){
-                            System.out.println("Saque de R$ "+valor_saque+" realizado com sucesso!");
-                            break;
-                        }
-                        else
-                            JOptionPane.showMessageDialog(null, "Saldo insuficiente!", "Erro",JOptionPane.ERROR_MESSAGE);
+                        banco.sacar(numero_sacada,valor_saque);
+                        JOptionPane.showMessageDialog(null, "Saque de R$ "+valor_saque+" realizado com sucesso!");
+                        break;
+
                     }else
                         JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
 
@@ -141,7 +138,7 @@ public class App {
                     if(banco.estaCadastrada(numero_depositada)){
                         double valor_deposito = lerDoublePositivo("\nDigite o valor do depósito: ",input);
                         if(banco.depositar(numero_depositada,valor_deposito)){
-                            System.out.println("Depósito de R$ "+valor_deposito+" realizado com sucesso!");
+                            JOptionPane.showMessageDialog(null, "Depósito de R$ "+valor+" realizado com sucesso!");
                             break;
                         }
                         else
@@ -165,7 +162,7 @@ public class App {
                     if (!banco.transferir(numero_fonte, numero_destino, valor_transferencia)) {
                         System.out.println("Operação falhou!");
                     } else {
-                        System.out.printf("Transferência de R$ %f para %s realizada com sucesso!", valor_transferencia, banco.consultarPorNumero(numero_destino).getNome());
+                        JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor_transferencia, banco.consultarPorNumero(numero_destino).consultarNome()));
                         break;
                     }
                 }while(lerSimOuNao("Repetir operação? ",input));
@@ -176,11 +173,15 @@ public class App {
 
                 System.out.print("Digite o número da sua conta poupança:\n>>> ");
                 Conta conta_poupanca = banco.consultarPorNumero(input.nextLine());
+
                 if(conta_poupanca == null) {
                     JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
                 }
+
                 else if(conta_poupanca instanceof ContaPoupanca){
-                    ((ContaPoupanca)conta_poupanca).renderJuros();
+                    ContaPoupanca auxiliar = ((ContaPoupanca)conta_poupanca);
+                    JOptionPane.showMessageDialog(null, String.format("Rendimentos de R$ %f foram adicionados à conta!", auxiliar.getSaldo()*auxiliar.getTaxa()));
+                    auxiliar.renderJuros();
 
                 }else {
                     JOptionPane.showMessageDialog(null, "Conta não é do tipo poupança!", "Erro",JOptionPane.ERROR_MESSAGE);
