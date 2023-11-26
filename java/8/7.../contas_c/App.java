@@ -1,8 +1,8 @@
-package contas_a;
+package contas_c;
 import javax.swing.JOptionPane;
 
-import static contas_a.utils.ManipuladorArquivos.*;
-import static contas_a.utils.MenuUtils.*;
+import static contas_c.utils.ManipuladorArquivos.*;
+import static contas_c.utils.MenuUtils.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -31,7 +31,7 @@ public class App {
         limparConsole();
         Banco banco = new Banco(nome_banco);
 
-
+        
         if(arquivoExiste(getCaminhoDoBancoDeDados(nome_banco))){
 
             ArrayList<String> conteudo = lerLinhas(getCaminhoDoBancoDeDados(nome_banco));
@@ -74,7 +74,7 @@ public class App {
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção:", "Menu", 0, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 String numero_cadastro = lerString("\nDigite o número da conta desejada: ", input);
-                while (!(banco.consultarPorNumero(numero_cadastro) == null)) {
+                while (!(banco.consultarContaPorNumero(numero_cadastro) == null)) {
                     JOptionPane.showMessageDialog(null, "Este número já está cadastrado!", "Erro",JOptionPane.ERROR_MESSAGE);
                     numero_cadastro = lerString("\nPor favor, digite outro: ", input);
                 }
@@ -101,7 +101,7 @@ public class App {
 
                 Conta procurada;
                 do {
-                    procurada = banco.consultarPorNumero(lerString("Digite o numero da conta desejada: ", input));
+                    procurada = banco.consultarContaPorNumero(lerString("Digite o numero da conta desejada: ", input));
                     if (procurada == null)
                         JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
                     else
@@ -121,7 +121,7 @@ public class App {
                         banco.sacar(numero_sacada,valor_saque);
                         JOptionPane.showMessageDialog(null, "Saque de R$ "+valor_saque+" realizado com sucesso!");
                         break;
-                        
+
                     }else
                         JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
 
@@ -162,7 +162,7 @@ public class App {
                     if (!banco.transferir(numero_fonte, numero_destino, valor_transferencia)) {
                         System.out.println("Operação falhou!");
                     } else {
-                        JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor_transferencia, banco.consultarPorNumero(numero_destino).consultarNome()));
+                        JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor_transferencia, banco.consultarContaPorNumero(numero_destino).getNome()));
                         break;
                     }
                 }while(lerSimOuNao("Repetir operação? ",input));
@@ -172,8 +172,8 @@ public class App {
             else if(opcao == RENDER_JUROS){
 
                 System.out.print("Digite o número da sua conta poupança:\n>>> ");
-                Conta conta_poupanca = banco.consultarPorNumero(input.nextLine());
-                
+                Conta conta_poupanca = banco.consultarContaPorNumero(input.nextLine());
+
                 if(conta_poupanca == null) {
                     JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
                 }
@@ -192,14 +192,14 @@ public class App {
 
                 Conta alvo;
                 do{
-                    alvo = banco.consultarPorNumero(lerString("Digite o numero da conta desejada: ",input));
+                    alvo = banco.consultarContaPorNumero(lerString("Digite o numero da conta desejada: ",input));
                     if(alvo == null){
 
                         JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
 
                     }else{
 
-                        banco.excluirContaPorNumero(alvo.consultarNumero());
+                        banco.excluirContaPorNumero(alvo.getNumero());
                         //nao sei se funcionou ou não...
                         System.out.println("Exclusão concluída com sucesso!");
                         break;

@@ -1,6 +1,20 @@
-package contas_b;
+package contas_c;
 
 public class Conta {
+
+    @Override
+    public boolean equals (Object conta){
+        
+        if(conta instanceof Conta)
+            return numero.equals( ((Conta)conta).getNumero() );
+
+        else if(conta instanceof String)
+            return numero.equals( (String)conta );
+
+        return false;
+    }
+
+
     @Override
     public String toString(){
         return String.format("Conta %s\nCliente: %s\nSaldo atual: %f",this.getNumero(),this.getNome(),this.getSaldo());
@@ -44,22 +58,21 @@ public class Conta {
         saldo -= valor; 
     }
 
-    void depositar(double valor) throws Exception{
+    boolean depositar(double valor) throws Exception{
         
         if(saldo <= 0)
             throw new Exception("Valor inválido!");
      
         this.saldo += valor;
+        return true; 
     }
 
     public double getSaldo(){
-        
         return this.saldo;
     }
 
-    void transferir(Conta contaDestino, double valor) throws Exception{
-
+    boolean transferir(Conta contaDestino, double valor) throws Exception{
         sacar(valor);
-        contaDestino.depositar(valor);
+        return contaDestino.depositar(valor);
     }   
 }

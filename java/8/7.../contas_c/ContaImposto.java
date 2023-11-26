@@ -1,4 +1,4 @@
-package contas_b;
+package contas_c;
 
 public class ContaImposto extends Conta {
     private double taxa;
@@ -17,7 +17,7 @@ public class ContaImposto extends Conta {
     public void sacar(double quantidade) throws Exception {
         super.sacar(quantidade + quantidade*(taxa/100));
     }
-    public void depositar(double quantidade) throws Exception{
-        super.depositar(quantidade - quantidade*(taxa/100));
+    public boolean depositar(double quantidade) throws Exception{
+        return super.depositar(quantidade - quantidade*(taxa/100));
     }
 }

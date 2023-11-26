@@ -17,8 +17,8 @@ class Questao3 {
         Conta conta = new Conta("123", "João",100);
         Conta conta2 = new Conta("456", "Flavia",200);
         Banco banco = new Banco("Banco");
-        banco.cadastrarConta(conta);
-        banco.cadastrarConta(conta2);
+        banco.inserir(conta);
+        banco.inserir(conta2);
         banco.sacar("123", 101);
         banco.sacar("456", 300);
     }
@@ -58,8 +58,8 @@ class Questao5 {
 
         ContaPoupanca conta = new ContaPoupanca("718", "Caio",555,0.12);
         Conta conta2 = new Conta("532", "Katia",67);
-        banco.cadastrarConta(conta);
-        banco.cadastrarConta(conta2);
+        banco.inserir(conta);
+        banco.inserir(conta2);
         banco.transferir("718","532",600);   
     }
     /*

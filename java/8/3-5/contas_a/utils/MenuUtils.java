@@ -25,8 +25,7 @@ public class MenuUtils {
         }
         return input.nextInt();
     }
-    public static void pause(){
-        Scanner input = new Scanner(System.in);
+    public static void pause(Scanner input){
         input.nextLine();
     }
     public static boolean ehSim(String resposta){

@@ -136,13 +136,10 @@ public class App {
                 do {
                     numero_depositada = lerString("\nDigite o número da sua conta: ",input);
                     if(banco.estaCadastrada(numero_depositada)){
-                        double valor_deposito = lerDoublePositivo("\nDigite o valor do depósito: ",input);
-                        if(banco.depositar(numero_depositada,valor_deposito)){
-                            JOptionPane.showMessageDialog(null, "Depósito de R$ "+valor+" realizado com sucesso!");
-                            break;
-                        }
-                        else
-                            JOptionPane.showMessageDialog(null, "Depósito falhou!", "Erro",JOptionPane.ERROR_MESSAGE);
+                        double valor = lerDoublePositivo("\nDigite o valor do depósito: ",input);
+                        banco.depositar(numero_depositada,valor);
+                        JOptionPane.showMessageDialog(null, "Depósito de R$ "+valor+" realizado com sucesso!");
+                        break;
                     }else
                         JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
 
@@ -159,12 +156,8 @@ public class App {
                     numero_destino = lerString("Digite o número da conta destino: ", input);
                     valor_transferencia = lerDoublePositivo("Digite o valor a ser transferido: ", input);
 
-                    if (!banco.transferir(numero_fonte, numero_destino, valor_transferencia)) {
-                        System.out.println("Operação falhou!");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor_transferencia, banco.consultarPorNumero(numero_destino).consultarNome()));
-                        break;
-                    }
+                    banco.transferir(numero_fonte, numero_destino, valor_transferencia);
+                    JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor_transferencia, banco.consultarPorNumero(numero_destino).getNome()));
                 }while(lerSimOuNao("Repetir operação? ",input));
 
             }
@@ -172,20 +165,8 @@ public class App {
             else if(opcao == RENDER_JUROS){
 
                 System.out.print("Digite o número da sua conta poupança:\n>>> ");
-                Conta conta_poupanca = banco.consultarPorNumero(input.nextLine());
-
-                if(conta_poupanca == null) {
-                    JOptionPane.showMessageDialog(null, "Conta não encontrada!", "Erro",JOptionPane.ERROR_MESSAGE);
-                }
-
-                else if(conta_poupanca instanceof ContaPoupanca){
-                    ContaPoupanca auxiliar = ((ContaPoupanca)conta_poupanca);
-                    JOptionPane.showMessageDialog(null, String.format("Rendimentos de R$ %f foram adicionados à conta!", auxiliar.getSaldo()*auxiliar.getTaxa()));
-                    auxiliar.renderJuros();
-
-                }else {
-                    JOptionPane.showMessageDialog(null, "Conta não é do tipo poupança!", "Erro",JOptionPane.ERROR_MESSAGE);
-                }
+                String numero = input.nextLine();
+                banco.renderJuros(numero);
             }
 
             else if(opcao == EXCLUSAO){

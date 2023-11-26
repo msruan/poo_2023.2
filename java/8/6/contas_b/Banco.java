@@ -79,36 +79,38 @@ public class Banco {
     
     //Operacoes basicas
     public void cadastrarConta(Conta conta){
+        
         if(!estaCadastrada(conta.getNumero())){
             contas.add(conta);
         }
     }
 
     public void sacar(String numero, double valor) throws Exception{
+
         Conta alvo = consultarPorNumero(numero);
         if(alvo != null){
             alvo.sacar(valor);
         }
     }
 
-    public boolean depositar(String numero, double valor) throws Exception{
+    public void depositar(String numero, double valor) throws Exception{
         Conta alvo = consultarPorNumero(numero);
-        if(alvo != null) {
-            return alvo.depositar(valor);
-        }return false;
+        if(alvo != null) 
+            alvo.depositar(valor);
     }
 
-    public boolean transferir(String fonte, String destino, double valor) throws Exception{
-        int index_fonte = obterIndicePorNumero(fonte);
-        if(index_fonte!= -1){
-            int index_destino = obterIndicePorNumero(destino);
-            if(index_destino!= -1){
-                return contas.get(index_fonte).transferir(contas.get(index_destino),valor);
-            }
-        }return false;
+    public void transferir(String fonte, String destino, double valor) throws Exception{
+
+        Conta conta_fonte = consultarPorNumero(fonte);
+        Conta conta_destino = consultarPorNumero(destino);
+
+        if(conta_fonte != null && conta_destino != null){
+            conta_fonte.transferir(conta_destino,valor);
+        }
     }
 
     public void alterar(Conta conta) {
+
         int indice_procurado = obterIndicePorNumero(conta.getNumero());
         if (indice_procurado != -1)
             contas.set(indice_procurado, conta);
