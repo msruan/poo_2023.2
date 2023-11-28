@@ -1,8 +1,8 @@
-package contas_a;
+package contas_c;
 
 import java.util.Scanner;
 import javax.swing.JOptionPane;
-import static contas_a.utils.MenuUtils.*;
+import static contas_c.utils.MenuUtils.*;
 
 public class App {
     
@@ -32,13 +32,15 @@ public class App {
         do{
 
             if(banco.getTotalContas() == 0) {
-                opcao = lerInt(gerarMenu(nome_banco, "Cadastrar"),input);
+                System.out.print(gerarMenu(nome_banco, "Cadastrar"));
+                opcao = input.nextInt();
                 if (opcao != 0 && opcao != 1)
                     continue;
             }
 
             else{
-                opcao = lerInt(menu_principal,input);
+                System.out.print(menu_principal);
+                opcao = input.nextInt();
                 if (opcao < 1 || opcao > 8)
                     continue;
             }
@@ -52,16 +54,16 @@ public class App {
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção:", "Menu", 0, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 String numero_cadastro = JOptionPane.showInputDialog(null,"\nDigite o número da conta desejada: ","Cadastro", JOptionPane.QUESTION_MESSAGE);
-
+      
                 nome = JOptionPane.showInputDialog(null,"Digite seu nome: ", "Cadastro", JOptionPane.QUESTION_MESSAGE);
                 
-                saldo = lerDouble("\nDigite seu saldo atual: ", input);
+                saldo = lerDouble("Digite seu saldo atual: ", input);
 
                 if(escolha == 0)
                     banco.inserir(new Conta(numero_cadastro, nome, saldo));
 
                 else{
-                    double taxa = lerDouble("Digite o valor da taxa: ",input);
+                    double taxa = lerDouble("Digite o valor da taxa: ", input);
 
                     if(escolha == 1)
                         banco.inserir(new ContaPoupanca(numero_cadastro, nome, saldo, taxa));
@@ -92,8 +94,7 @@ public class App {
 
                     if(conta != null){
 
-                        valor = lerDouble("\nDigite o valor: ",input);
-
+                        valor = lerDouble("Digite o valor: ", input);
                         if(opcao == SAQUE)
                             conta.sacar(valor);
                         else
@@ -113,11 +114,9 @@ public class App {
             else if(opcao == TRANSFERENCIA){
                     
                 String numero_fonte, numero_destino;
-                double valor_transferencia;
-                numero_fonte = lerString("Digite o número da conta fonte: ", input);
+                numero_fonte = JOptionPane.showInputDialog(null,"Digite o número da conta fonte: ");
                 numero_destino = lerString("Digite o número da conta destino: ", input);
-                valor_transferencia = lerDouble("Digite o valor a ser transferido: ", input);
-
+                double valor_transferencia = lerDouble("Digite o valor a ser transferido: ", input);
                 banco.transferir(numero_fonte, numero_destino, valor_transferencia);
             }
 
@@ -130,9 +129,8 @@ public class App {
 
             else if(opcao == EXCLUSAO){
                     
-                banco.excluir(lerString("Digite o numero da conta desejada: ",input));
+                banco.excluir(JOptionPane.showInputDialog(null,"Digite o numero da conta desejada: ",input));
                 JOptionPane.showMessageDialog(null, "Exclusão finalizada!");
-
             }
 
             else if(opcao == TOTAL){

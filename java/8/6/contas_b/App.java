@@ -54,12 +54,7 @@ public class App {
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha uma opção:", "Menu", 0, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 String numero_cadastro = JOptionPane.showInputDialog(null,"\nDigite o número da conta desejada: ","Cadastro", JOptionPane.QUESTION_MESSAGE);
-                
-                while (!(banco.consultarConta(numero_cadastro) == null)) {
-                    JOptionPane.showMessageDialog(null, "Este número já está cadastrado!", "Erro",JOptionPane.ERROR_MESSAGE);
-                    numero_cadastro = JOptionPane.showInputDialog(null,"\nDigite outro número: ","Cadastro", JOptionPane.QUESTION_MESSAGE);
-                }
-
+      
                 nome = JOptionPane.showInputDialog(null,"Digite seu nome: ", "Cadastro", JOptionPane.QUESTION_MESSAGE);
                 
                 saldo = lerDouble("Digite seu saldo atual: ", input);
