@@ -83,7 +83,7 @@ public class Banco {
         Conta destino = consultarConta(num_destino);
 
         if(Optional.ofNullable(fonte).isPresent() && Optional.ofNullable(destino).isPresent()){
-            JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor, fonte.getNome()));
+       
             fonte.transferir(destino, valor);
         }
     }

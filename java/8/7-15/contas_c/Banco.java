@@ -1,9 +1,6 @@
 package contas_c;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import javax.swing.JOptionPane;
 
 import contas_c.utils.ManipuladorArquivos;
 
@@ -20,72 +17,60 @@ public class Banco {
     //Metodos
     public void inserir(Conta conta){
 
-        if(consultarConta(conta.getNumero()) == null ){
+        try {
+            consultarConta(conta.getNumero());
+        }catch (ContaNotFoundException e){
             contas.add(conta);
-        }else {
-            System.out.println("Conta já está cadastrada!");
         }
     }
 
-    public Conta consultarConta(String numero) {
+    public Conta consultarConta(String numero) throws ContaNotFoundException{
 
         for (Conta item : this.contas) {
             if (item.getNumero().equals(numero))
                 return item;
         }
-        return null;
+        throw new ContaNotFoundException();
     }
 
-    private int consultarIndice(String numero){
+    private int consultarIndice(String numero) throws ContaNotFoundException{
 
         for(int i =0; i < contas.size(); i++){
             if(numero.equals(contas.get(i).getNumero()))
                 return i;
-        }return -1;
+        }throw new ContaNotFoundException();
     }
 
     //Operacoes basicas
-    public void alterar(Conta conta) {
+    public void alterar(Conta conta) throws ContaNotFoundException{
 
         int indice_procurado = consultarIndice(conta.getNumero());
-        if (indice_procurado != -1)
-            contas.set(indice_procurado, conta);
+        contas.set(indice_procurado, conta);
     }
 
-    public void excluir(String numero){
+    public void excluir(String numero) throws ContaNotFoundException{
 
         int index = consultarIndice(numero);
-        if(index != -1){
-            contas.remove(index);
-        }
+        contas.remove(index);
     }
 
-    public void depositar(String numero, double valor) throws Exception{
+    public void depositar(String numero, double valor) throws ContaNotFoundException, ValorInvalidoException, SaldoInsuficienteException{
 
         Conta alvo = consultarConta(numero);
-
-        if(alvo != null) {
-            alvo.depositar(valor);
-        }
+        alvo.depositar(valor);
     }
 
-    public void sacar(String numero, double valor) throws Exception{
+    public void sacar(String numero, double valor) throws ContaNotFoundException, ValorInvalidoException, SaldoInsuficienteException{
 
         Conta alvo = consultarConta(numero);
-
-        if(alvo != null)
-            alvo.sacar(valor);
+        alvo.sacar(valor);
     }
 
     public void transferir(String num_fonte, String num_destino, double valor) throws Exception{
 
         Conta fonte = consultarConta(num_fonte);
         Conta destino = consultarConta(num_destino);
-
-        if(Optional.ofNullable(fonte).isPresent() && Optional.ofNullable(destino).isPresent()){
-            JOptionPane.showMessageDialog(null, "Transferência de R$ %f para %s realizada com sucesso!".formatted(valor, fonte.getNome()));
-            fonte.transferir(destino, valor);
-        }
+        fonte.transferir(destino, valor);
     }
 
     public double getTotalDepositado(){
@@ -105,13 +90,14 @@ public class Banco {
     }
     
 
-    public void renderJuros(String numero) throws Exception{
+    public void renderJuros(String numero) throws ContaNotFoundException, NotPoupancaObject, ValorInvalidoException{
 
         Conta conta = consultarConta(numero);
-        if(conta != null && conta instanceof ContaPoupanca){
+        if(conta instanceof ContaPoupanca){
             ContaPoupanca contaP = (ContaPoupanca)conta;
             contaP.renderJuros();
-        }
+        }else 
+            throw new NotPoupancaObject();
     }
 
     public String getPath(){

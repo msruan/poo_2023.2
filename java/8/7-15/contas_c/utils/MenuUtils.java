@@ -76,7 +76,7 @@ public class MenuUtils {
         String saida = input.nextLine();
         while(saida.isEmpty() || saida.isBlank())
             saida = input.nextLine();
-        return saida;
+        return saida.trim();
     }
 
     public static void limparConsole(){

@@ -4,10 +4,9 @@ public class ContaPoupanca extends Conta {
 
     private double taxa;
 
-    ContaPoupanca(String numero, String nome, double saldo, double taxa) throws Exception{
+    ContaPoupanca(String numero, String nome, double saldo, double taxa) throws ValorInvalidoException{
         super(numero, nome, saldo);
-        if(taxa < 0)
-            throw new Exception("Taxa de juros não pode ser negativa!");
+        validarValor(taxa);
         this.taxa = taxa;
     }
     
@@ -15,7 +14,7 @@ public class ContaPoupanca extends Conta {
         return taxa;
     }
 
-    public void renderJuros() throws Exception{
+    public void renderJuros() throws ValorInvalidoException{
         depositar(getSaldo() * (taxa));
     }
 }

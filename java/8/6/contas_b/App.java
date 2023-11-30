@@ -118,6 +118,7 @@ public class App {
                 numero_destino = lerString("Digite o número da conta destino: ", input);
                 double valor_transferencia = lerDouble("Digite o valor a ser transferido: ", input);
                 banco.transferir(numero_fonte, numero_destino, valor_transferencia);
+                JOptionPane.showMessageDialog(null, String.format("Transferência de %f realizada com sucesso!",valor_transferencia));
             }
 
             else if(opcao == RENDER_JUROS){

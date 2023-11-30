@@ -41,7 +41,7 @@ conta.metodoY(...);
 
 x(numero: string): void {
 let procurada = consultar(numero);
-çconta.metodoY(...);
+conta.metodoY(...);
 }
 
 10) Crie uma exceção chamada ValorInvalidoError que herda de AplicacaoException e
@@ -49,25 +49,29 @@ altere a classe Conta para que ao receber um crédito/depósito, caso o valor se
 menor ou igual a zero, seja lançada a exceção ValorInvalidoError. Altere também o
 construtor da classe Conta para que o saldo inicial seja atribuído utilizando o
 método depositar.
+
 11) Você percebeu que o código que valida se o valor é menor ou igual a zero se
 repete nos métodos sacar e depositar? Refatore o código criando um método
 privado chamado validarValor onde um valor é passado como parâmetro e caso o
-
 mesmo seja menor ou igual a zero, seja lançada uma exceção. Altere também os
 métodos sacar e depositar para chamar esse método de validação em vez de cada
 um lançar a sua própria exceção, evitando assim a duplicação de código.
+
 12) Crie uma exceção chamada PoupancaInvalidaError que herda de AplicacaoError.
 Altere então o método render juros da classe Banco para que caso a conta não
 seja uma poupança, a exceção criada seja lançada.
+
 13) Crie uma validação para não cadastrar mais de uma conta com o mesmo número.
 Para isso, chame o método consultar no método inserir da classe banco. Apenas
 se a exceção do método consultar for lançada, você deve incluir a conta. Para
 isso, consulte a conta dentro de um try e o faça a inclusão no catch
+
 14) Altere a aplicação “app.ts” para que tenha um tratamento de exceções no do {}
 while mostra a estrutura do slide “Aplicação Robusta”.
+
 15) Crie exceções relacionadas a valores obtidos da entrada de dados que não sejam
-aceitáveis, como valores vazios, números inválidos etc. Na aplicação, trate todas
+aceitáveis, como  vazios, números inválidos etc. Na aplicação, trate todas
 as entradas de dados para que, caso o usuário infrinja regras de preenchimento, o
 sistema lance e trate as exceções e informe que a entrada foi inválida.
 Nota: nenhuma das exceções lançadas por você ou pela aplicação deve “abortar”
-o programa. Elas devem ser obrigatoriamente tratadas.
+o programa. Elas devem sevaloresr obrigatoriamente tratadas.

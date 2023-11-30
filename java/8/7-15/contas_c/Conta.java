@@ -6,11 +6,10 @@ public class Conta {
     private final String nome;
     private double saldo;
 
-    public Conta(String numero, String nome, double saldo){
+    public Conta(String numero, String nome, double saldo) throws ValorInvalidoException{
         this(numero,nome);
-        if(saldo < 0)
-            throw new Error("Saldo inicial não pode ser negativo!");
-        this.saldo = saldo;
+        this.saldo = 0;
+        depositar(saldo);
     }
 
     public Conta(String numero, String nome){
@@ -31,17 +30,15 @@ public class Conta {
         return String.format("Conta %s\nCliente: %s\nSaldo atual: %f",this.getNumero(),this.getNome(),this.getSaldo());
     }
 
-    void sacar(double valor) throws Exception {
+    void sacar(double valor) throws SaldoInsuficienteException, ValorInvalidoException {
+        validarValor(valor);
         if(saldo < valor)
-            throw new Exception("Saldo insuficiente!");
-        else if(valor < 0)
-            throw new Exception("Valor negativo passado para saque!");
+            throw new SaldoInsuficienteException();
         this.saldo -= valor;
     }
 
-    void depositar(double valor) throws Exception{
-        if(valor < 0)
-            throw new Exception("Valor negativo passado para depósito!");
+    void depositar(double valor) throws ValorInvalidoException{
+        validarValor(valor);
         this.saldo += valor;
     }
 
@@ -53,4 +50,9 @@ public class Conta {
         sacar(valor);
         contaDestino.depositar(valor);
     }   
+
+    void validarValor(double valor) throws ValorInvalidoException {
+        if(valor <= 0)
+            throw new ValorInvalidoException();
+    }
 }
